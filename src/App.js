@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import "./App.css";
 
 function padTime(time) {
@@ -8,10 +8,10 @@ function padTime(time) {
 export default function App() {
   const [title, setTitle] = useState("Let the countdown begin!");
   const [timeLeft, setTimeLeft] = useState(10);
-  let interval = null;
+  let intervalRef = useRef(null);
 
   function startTimer() {
-    interval = setInterval(() => {
+    intervalRef.current = setInterval(() => {
       setTimeLeft((timeLeft) => {
         if (timeLeft >= 1) return timeLeft - 1;
 
@@ -22,7 +22,7 @@ export default function App() {
   }
 
   function stopTimer() {
-    clearInterval(interval);
+    clearInterval(intervalRef.current);
   }
 
   const minutes = padTime(Math.floor(timeLeft / 60));
