@@ -9,6 +9,12 @@ export default function App() {
   const [title, setTitle] = useState("Let the countdown begin!");
   const [timeLeft, setTimeLeft] = useState(25 * 60);
 
+  function startTimer() {
+    setInterval(() => {
+      setTimeLeft(timeLeft - 1);
+    }, 1000);
+  }
+
   const minutes = padTime(Math.floor(timeLeft / 60));
   const seconds = padTime(timeLeft - minutes * 60);
 
@@ -23,7 +29,7 @@ export default function App() {
       </div>
 
       <div className="buttons">
-        <button>Start</button>
+        <button onClick={startTimer}>Start</button>
         <button>Stop</button>
         <button>Reset</button>
       </div>
