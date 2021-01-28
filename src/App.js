@@ -5,6 +5,10 @@ function padTime(time) {
   return time.toString().padStart(2, "0");
 }
 
+let interval = setInterval(() => {}, 1000);
+
+clearInterval(interval);
+
 export default function App() {
   const [title, setTitle] = useState("Let the countdown begin!");
   const [timeLeft, setTimeLeft] = useState(10);
