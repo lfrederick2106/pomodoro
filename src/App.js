@@ -11,6 +11,7 @@ export default function App() {
   let intervalRef = useRef(null);
 
   function startTimer() {
+    setTitle(`You're doing great!`);
     intervalRef.current = setInterval(() => {
       setTimeLeft((timeLeft) => {
         if (timeLeft >= 1) return timeLeft - 1;
@@ -23,6 +24,7 @@ export default function App() {
 
   function stopTimer() {
     clearInterval(intervalRef.current);
+    setTitle("Keep it up!");
   }
 
   const minutes = padTime(Math.floor(timeLeft / 60));
