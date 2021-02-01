@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import "./App.css";
-// import alertSound from "./happy-bell-alert.wav";
+import alertSound from "./happy-bell-alert.wav";
+import useSound from "use-sound";
 
 function padTime(time) {
   return time.toString().padStart(2, "0");
@@ -64,7 +65,7 @@ export default function App() {
     intervalRef.current = setInterval(() => {
       setTimeLeft((timeLeft) => {
         if (timeLeft >= 1) return timeLeft - 1;
-        playAudio();
+        alert();
         setCycleIndex(cycleIndex + 1);
         setBreakTime(!breakTime);
         // resetTimer();
@@ -98,6 +99,8 @@ export default function App() {
   //   // setTimeLeft(25 * 60);
   //   setIsRunning(false);
   // }
+
+  const [alert] = useSound(alertSound, { volume: 0.25 });
 
   const minutes = padTime(Math.floor(timeLeft / 60));
   const seconds = padTime(timeLeft - minutes * 60);
