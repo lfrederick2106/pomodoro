@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Major+Mono+Display&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Major+Mono+Display&display=swap");
 
 * {
   box-sizing: border-box;
@@ -7,7 +7,7 @@
 body {
   padding: 0;
   margin: 0;
-  font-family: 'Major Mono Display', monospace;
+  font-family: "Major Mono Display", monospace;
   line-height: 1.5;
 }
 
@@ -19,19 +19,41 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+#background-blue {
   background: #87d7cc;
   color: #2c888d;
 }
 
-h2 {
+#backgroun-blue h2 {
   color: #49b2b8;
+}
+
+#background-blue .timer {
+  color: #1f6e72;
+}
+
+#background-red {
+  background: #f2bc1b;
+  color: #bf3415;
+}
+
+#background-red h2 {
+  color: #d97904;
+}
+
+#background-red .timer {
+  color: #bf3415;
+}
+
+h2 {
   font-size: 30px;
   text-align: center;
   margin: 0;
 }
 
 .timer {
-  color: #1f6e72;
   font-size: 150px;
   margin-bottom: 20px;
 }

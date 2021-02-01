@@ -1,26 +1,74 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import "./App.css";
+// import alertSound from "./happy-bell-alert.wav";
 
 function padTime(time) {
   return time.toString().padStart(2, "0");
 }
 
+function playAudio() {
+  const audioEl = "./happy-bell-alert.wav";
+  audioEl.play();
+}
+
 export default function App() {
-  const [title, setTitle] = useState("Let the countdown begin!");
-  const [timeLeft, setTimeLeft] = useState(10);
+  const [title, setTitle] = useState("Time to focus!");
+  const [timeLeft, setTimeLeft] = useState(5);
   const [isRunning, setIsRunning] = useState(false);
+  const [breakTime, setBreakTime] = useState(false);
+  const [cycleIndex, setCycleIndex] = useState(1);
+  // const [backgroundColor, setBackgroundColor] = useState("red");
   let intervalRef = useRef(null);
+
+  useEffect(() => {
+    console.log("cycleIndex:", cycleIndex);
+    clearInterval(intervalRef.current);
+    intervalRef.current = null;
+    // setTitle("Ready to go another round?");
+    if (cycleIndex % 8 === 0) {
+      setTimeLeft(20 * 60);
+      setTitle("Take a break!");
+    } else if (cycleIndex % 2 !== 0) {
+      setTimeLeft(25 * 60);
+      setTitle("Time to focus!");
+    } else {
+      setTimeLeft(5 * 60);
+      setTitle("Take a break!");
+    }
+    // setTimeLeft(25 * 60);
+    if (cycleIndex > 1) {
+      startTimer();
+    }
+  }, [cycleIndex]);
+
+  // useEffect(() => {
+  //   console.log("break time?", breakTime);
+  //   if (breakTime) {
+  //     setBackgroundColor("blue");
+  //   } else {
+  //     setBackgroundColor("red");
+  //   }
+  // }, [breakTime]);
 
   function startTimer() {
     if (intervalRef.current != null) return;
 
-    setTitle(`You're doing great!`);
+    if (cycleIndex % 8 === 0) {
+      setTitle("Take a break!");
+    } else if (cycleIndex % 2 !== 0) {
+      setTitle("Time to focus!");
+    } else {
+      setTitle("Take a break!");
+    }
     setIsRunning(true);
     intervalRef.current = setInterval(() => {
       setTimeLeft((timeLeft) => {
         if (timeLeft >= 1) return timeLeft - 1;
-        resetTimer();
-        return 0;
+        playAudio();
+        setCycleIndex(cycleIndex + 1);
+        setBreakTime(!breakTime);
+        // resetTimer();
+        // return 0;
       });
     }, 1000);
   }
@@ -33,20 +81,30 @@ export default function App() {
     setIsRunning(false);
   }
 
-  function resetTimer() {
-    clearInterval(intervalRef.current);
-    intervalRef.current = null;
-    setTitle("Ready to go another round?");
-    setTimeLeft(25 * 60);
-    setIsRunning(false);
-  }
+  // function resetTimer() {
+  //   console.log("Timer is resetting");
+
+  //   console.log("cycleIndex:", cycleIndex);
+  //   clearInterval(intervalRef.current);
+  //   intervalRef.current = null;
+  //   setTitle("Ready to go another round?");
+  //   if (cycleIndex % 8 === 0) {
+  //     setTimeLeft(20 * 60);
+  //   } else if (cycleIndex % 2 !== 0) {
+  //     setTimeLeft(25 * 60);
+  //   } else {
+  //     setTimeLeft(5 * 60);
+  //   }
+  //   // setTimeLeft(25 * 60);
+  //   setIsRunning(false);
+  // }
 
   const minutes = padTime(Math.floor(timeLeft / 60));
   const seconds = padTime(timeLeft - minutes * 60);
 
   return (
-    <div className="app">
-      <h2>Pomodoro!</h2>
+    <div className="app" id={breakTime ? "background-blue" : "background-red"}>
+      <h2>{title}</h2>
 
       <div className="timer">
         <span>{minutes}</span>
@@ -57,7 +115,7 @@ export default function App() {
       <div className="buttons">
         {!isRunning && <button onClick={startTimer}>Start</button>}
         {isRunning && <button onClick={stopTimer}>Stop</button>}
-        <button onClick={resetTimer}>Reset</button>
+        {/* <button onClick={resetTimer}>Reset</button> */}
       </div>
     </div>
   );
