@@ -56,10 +56,13 @@ export default function App() {
 
     if (cycleIndex % 8 === 0) {
       setTitle("Take a break!");
+      document.title = "Break time";
     } else if (cycleIndex % 2 !== 0) {
       setTitle("Time to focus!");
+      document.title = "Focus time";
     } else {
       setTitle("Take a break!");
+      document.title = "Break time";
     }
     setIsRunning(true);
     intervalRef.current = setInterval(() => {
@@ -82,23 +85,17 @@ export default function App() {
     setIsRunning(false);
   }
 
-  // function resetTimer() {
-  //   console.log("Timer is resetting");
+  function resetTimer() {
+    console.log("Timer is resetting");
 
-  //   console.log("cycleIndex:", cycleIndex);
-  //   clearInterval(intervalRef.current);
-  //   intervalRef.current = null;
-  //   setTitle("Ready to go another round?");
-  //   if (cycleIndex % 8 === 0) {
-  //     setTimeLeft(20 * 60);
-  //   } else if (cycleIndex % 2 !== 0) {
-  //     setTimeLeft(25 * 60);
-  //   } else {
-  //     setTimeLeft(5 * 60);
-  //   }
-  //   // setTimeLeft(25 * 60);
-  //   setIsRunning(false);
-  // }
+    console.log("cycleIndex:", cycleIndex);
+    clearInterval(intervalRef.current);
+    intervalRef.current = null;
+    // setTitle("Ready to go another round?");
+    setCycleIndex(1);
+    setTimeLeft(25 * 60);
+    setIsRunning(false);
+  }
 
   const [alert] = useSound(alertSound, { volume: 0.25 });
 
@@ -117,8 +114,8 @@ export default function App() {
 
       <div className="buttons">
         {!isRunning && <button onClick={startTimer}>Start</button>}
-        {isRunning && <button onClick={stopTimer}>Stop</button>}
-        {/* <button onClick={resetTimer}>Reset</button> */}
+        {isRunning && <button onClick={stopTimer}>Pause</button>}
+        <button onClick={resetTimer}>Reset</button>
       </div>
     </div>
   );
