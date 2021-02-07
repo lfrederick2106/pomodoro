@@ -7,10 +7,10 @@ function padTime(time) {
   return time.toString().padStart(2, "0");
 }
 
-function playAudio() {
-  const audioEl = "./happy-bell-alert.wav";
-  audioEl.play();
-}
+// function playAudio() {
+//   const audioEl = "./happy-bell-alert.wav";
+//   audioEl.play();
+// }
 
 export default function App() {
   const [title, setTitle] = useState("Time to focus!");
@@ -93,6 +93,7 @@ export default function App() {
     intervalRef.current = null;
     // setTitle("Ready to go another round?");
     setCycleIndex(1);
+    setBreakTime(false);
     setTimeLeft(25 * 60);
     setIsRunning(false);
   }
