@@ -1,6 +1,6 @@
 # Pomodoro
 
-Pomodoro productivity timer
+Pomodoro productivity timer <br/><br/>
 [Try my app for yourself!](http://focus-timer.today/)
 
 ### The Pomodoro Technique
